@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TrimRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const trim_controller_1 = require("./trim.controller");
+const trim_validation_1 = require("./trim.validation");
+const FileUploadHelper_1 = require("../../../helpers/FileUploadHelper");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const user_1 = require("../../../enum/user");
+const router = express_1.default.Router();
+router.post("/all", FileUploadHelper_1.FileUploadHelper.upload.single("file"), trim_controller_1.TrimController.uploadCSV);
+router.post("/create", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), (0, validateRequest_1.default)(trim_validation_1.TrimValidation.createTrimZodSchema), trim_controller_1.TrimController.createTrim);
+router.get("/:id", trim_controller_1.TrimController.getSingleTrim);
+router.get("/", trim_controller_1.TrimController.getAllTrims);
+router.patch("/:id", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), (0, validateRequest_1.default)(trim_validation_1.TrimValidation.updateTrimZodSchema), trim_controller_1.TrimController.updateTrim);
+router.delete("/:id", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), trim_controller_1.TrimController.deleteTrim);
+exports.TrimRoutes = router;

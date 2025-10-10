@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FleetAuthRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const fleetAuth_validation_1 = require("./fleetAuth.validation");
+const validateRequest_1 = __importDefault(require("../../../middlewares/validateRequest"));
+const fleetAuth_controller_1 = require("./fleetAuth.controller");
+const fleetAuth_1 = __importDefault(require("../../../middlewares/fleetAuth"));
+const user_1 = require("../../../../enum/user");
+const router = express_1.default.Router();
+router.post("/login", (0, validateRequest_1.default)(fleetAuth_validation_1.FleetAuthValidation.FleetloginSchema), fleetAuth_controller_1.FleetAuthController.FleetLoginUser);
+router.post("/logout", fleetAuth_controller_1.FleetAuthController.FleetLogoutUser);
+router.post("/refresh-token", (0, validateRequest_1.default)(fleetAuth_validation_1.FleetAuthValidation.refreshTokenZodSchema), fleetAuth_controller_1.FleetAuthController.refreshToken);
+router.post("/change-password", (0, validateRequest_1.default)(fleetAuth_validation_1.FleetAuthValidation.changePasswordZodSchema), (0, fleetAuth_1.default)(user_1.ENUM_USER_ROLE.FLEET_USER), fleetAuth_controller_1.FleetAuthController.changePassword);
+router.post("/forgot-password", fleetAuth_controller_1.FleetAuthController.forgotPassword);
+router.post("/reset-password", fleetAuth_controller_1.FleetAuthController.resetPassword);
+exports.FleetAuthRoutes = router;

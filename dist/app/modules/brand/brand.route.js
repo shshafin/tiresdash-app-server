@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BrandRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const brand_controller_1 = require("./brand.controller");
+const brand_validation_1 = require("./brand.validation");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const user_1 = require("../../../enum/user");
+const fileHandlers_1 = require("../../../helpers/fileHandlers");
+const router = express_1.default.Router();
+router.post("/create", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), fileHandlers_1.uploadImage, (0, validateRequest_1.default)(brand_validation_1.BrandValidation.createBrandZodSchema), brand_controller_1.BrandController.createBrand);
+router.get("/", brand_controller_1.BrandController.getAllBrands);
+router.get("/:id", brand_controller_1.BrandController.getSingleBrand);
+router.patch("/:id", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), fileHandlers_1.uploadImage, (0, validateRequest_1.default)(brand_validation_1.BrandValidation.updateBrandZodSchema), brand_controller_1.BrandController.updateBrand);
+router.delete("/:id", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), brand_controller_1.BrandController.deleteBrand);
+exports.BrandRoutes = router;

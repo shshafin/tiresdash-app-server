@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MakeRoutes = void 0;
+const express_1 = __importDefault(require("express"));
+const validateRequest_1 = __importDefault(require("../../middlewares/validateRequest"));
+const make_controller_1 = require("./make.controller");
+const make_validation_1 = require("./make.validation");
+const fileHandlers_1 = require("../../../helpers/fileHandlers");
+const auth_1 = __importDefault(require("../../middlewares/auth"));
+const user_1 = require("../../../enum/user");
+const router = express_1.default.Router();
+router.post("/create", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), fileHandlers_1.uploadImage, (0, validateRequest_1.default)(make_validation_1.MakeValidation.createMakeZodSchema), make_controller_1.MakeController.createMake);
+router.get("/:id", make_controller_1.MakeController.getSingleMake);
+router.get("/", make_controller_1.MakeController.getAllMakes);
+router.patch("/:id", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), fileHandlers_1.uploadImage, (0, validateRequest_1.default)(make_validation_1.MakeValidation.updateMakeZodSchema), make_controller_1.MakeController.updateMake);
+router.delete("/:id", (0, auth_1.default)(user_1.ENUM_USER_ROLE.ADMIN, user_1.ENUM_USER_ROLE.SUPER_ADMIN), make_controller_1.MakeController.deleteMake);
+exports.MakeRoutes = router;

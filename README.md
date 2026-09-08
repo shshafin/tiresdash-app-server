@@ -1,52 +1,60 @@
-# Tiresdash Server - Backend API
+# TiresDash API server
 
-Backend server for Tiresdash, a cutting-edge platform for tire and wheel repair, installation, and purchase. This server handles B2B (fleet programs) and B2C (individual users) workflows, appointment booking, user management, and payment integration.
+Express/TypeScript backend for TiresDash. Supports appointment booking, fleet/vehicle workflows, catalog/order-related APIs, and payment integration endpoints used by the custom client application.
 
-## Tech Stack
+## What I worked on
 
-- **Runtime:** Node.js
-- **Language:** TypeScript
-- **Framework:** Express.js
-- **Database:** MongoDB
+Backend implementation for the TiresDash modernization path: API modules, booking/fleet-related routes, and supporting server configuration. This repository documents the API surface — not business strategy ownership or unverified commercial results.
 
-## Getting Started
+Public delivery boundary: [TiresDash case study](https://shafinsadnan.com/case-studies/tiresdash-wordpress-to-nextjs-migration)
 
-### Prerequisites
+## Core functionality
 
-- Node.js (v16 or higher)
-- MongoDB
-- npm or yarn
+- Appointment booking APIs
+- Fleet auth, vehicles, appointments, support, and related fleet modules
+- Catalog/product, order, cart, and review-related routes
+- Auth/user routes
+- Payment-related integrations (Stripe / PayPal client libraries present in dependencies)
 
-### Installation
+## Tech
 
-1. Clone the repository
+- Node.js
+- TypeScript
+- Express
+- MongoDB / Mongoose
+- JWT auth helpers
+- Dotenv-based configuration
+
+## Architecture / implementation notes
+
+- Modular routes under `src/app/modules`
+- Central route registration in `src/app/routes`
+- TypeScript build output to `dist/` for `npm start`
+
+## Running locally
+
+Prerequisites: Node.js and a MongoDB instance.
+
 ```bash
 git clone https://github.com/shshafin/tiresdash-app-server.git
+cd tiresdash-app-server
+npm install
 ```
 
-Navigate to the project directory
-```bash
-bashcd tiresdash-app-server
-```
-
-Install dependencies
-```bash
-bashnpm install
-```
-
-Create a .env file in the root directory with required environment variables
-Run the development server
-```bash
-bashnpm run dev
-```
-
-# The server will be available at http://localhost:5000
-# Available Scripts
+Create a `.env` file with the variables your local setup requires (MongoDB URI, JWT secret, client URLs, payment keys as needed). Do not commit secrets.
 
 ```bash
-npm run dev - Start development server
-npm run build - Build for production
-npm start - Start production server
+npm run dev
 ```
-# License
-All rights reserved.
+
+Production-style run after compile:
+
+```bash
+npm run build
+npm start
+```
+
+## Related proof
+
+- Case study: https://shafinsadnan.com/case-studies/tiresdash-wordpress-to-nextjs-migration
+- Client repository: https://github.com/shshafin/tiresdash-client-app

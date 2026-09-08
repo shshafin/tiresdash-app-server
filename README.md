@@ -1,37 +1,46 @@
-# TiresDash API server
+# TiresDash — API Server
 
-Express/TypeScript backend for TiresDash. Supports appointment booking, fleet/vehicle workflows, catalog/order-related APIs, and payment integration endpoints used by the custom client application.
+Express/TypeScript backend for TiresDash: appointment booking, fleet/vehicle workflows, catalog and order APIs, and payment-related endpoints used by the custom client.
 
-## What I worked on
+| | |
+| --- | --- |
+| **Case study** | [TiresDash — WordPress to Next.js](https://shafinsadnan.com/case-studies/tiresdash-wordpress-to-nextjs-migration) |
+| **Client repo** | [tiresdash-client](https://github.com/shshafin/tiresdash-client) |
+| **Client demo** | [tiresdash-client.vercel.app](https://tiresdash-client.vercel.app) |
+| **Portfolio** | [shafinsadnan.com](https://shafinsadnan.com) |
 
-Backend implementation for the TiresDash modernization path: API modules, booking/fleet-related routes, and supporting server configuration. This repository documents the API surface — not business strategy ownership or unverified commercial results.
+---
 
-Public delivery boundary: [TiresDash case study](https://shafinsadnan.com/case-studies/tiresdash-wordpress-to-nextjs-migration)
+## What this repo is
+
+Backend implementation for the TiresDash modernization path: API modules, booking/fleet-related routes, and supporting server configuration.
+
+This repository documents the **API surface** — not business strategy ownership or unverified commercial results. Delivery context lives in the public case study linked above.
 
 ## Core functionality
 
 - Appointment booking APIs
 - Fleet auth, vehicles, appointments, support, and related fleet modules
-- Catalog/product, order, cart, and review-related routes
-- Auth/user routes
+- Catalog / product, order, cart, and review-related routes
+- Auth and user routes
 - Payment-related integrations (Stripe / PayPal client libraries present in dependencies)
+- Tire size / brand / vehicle metadata modules
 
-## Tech
+## Tech stack
 
-- Node.js
-- TypeScript
-- Express
-- MongoDB / Mongoose
+- **Node.js** + **TypeScript**
+- **Express**
+- **MongoDB** / Mongoose
 - JWT auth helpers
 - Dotenv-based configuration
 
-## Architecture / implementation notes
+## Architecture notes
 
 - Modular routes under `src/app/modules`
 - Central route registration in `src/app/routes`
 - TypeScript build output to `dist/` for `npm start`
 
-## Running locally
+## Run locally
 
 Prerequisites: Node.js and a MongoDB instance.
 
@@ -41,13 +50,13 @@ cd tiresdash-app-server
 npm install
 ```
 
-Create a `.env` file with the variables your local setup requires (MongoDB URI, JWT secret, client URLs, payment keys as needed). Do not commit secrets.
+Create a `.env` with the variables your local setup requires (MongoDB URI, JWT secret, client URLs, payment keys as needed). **Do not commit secrets.**
 
 ```bash
 npm run dev
 ```
 
-Production-style run after compile:
+Production-style run:
 
 ```bash
 npm run build
@@ -57,4 +66,5 @@ npm start
 ## Related proof
 
 - Case study: https://shafinsadnan.com/case-studies/tiresdash-wordpress-to-nextjs-migration
-- Client repository: https://github.com/shshafin/tiresdash-client-app
+- Client: https://github.com/shshafin/tiresdash-client
+- Demo: https://tiresdash-client.vercel.app
